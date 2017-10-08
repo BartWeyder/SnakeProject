@@ -23,9 +23,9 @@ namespace Assets.Models
                         break;
                     case SnakePartType.Body:
                         if (value == MoveDirection.Right || value == MoveDirection.Left)
-                            GameObject.transform.Rotate(0, 0, 0);
+                            GameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
                         else
-                            GameObject.transform.Rotate(0, 0, 90);
+                            GameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
                         break;
                     default:
                         switch(value)

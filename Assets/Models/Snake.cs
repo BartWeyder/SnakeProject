@@ -357,6 +357,9 @@ namespace Assets.Models
                         InActiveBodyParts[0].GameObject.SetActive(true);
                         InActiveBodyParts[0].MoveDirection = BodyParts[0].MoveDirection;
                         InActiveBodyParts[0].Position = oldHeadPosition;
+                        BodyParts[changeElementIndex + 1].MovePart();
+                        RotateTail(BodyParts[changeElementIndex].MoveDirection,
+                            BodyParts[changeElementIndex].SnakeTurningPartType);
                         BodyParts.RemoveAt(changeElementIndex);
                         BodyParts.Insert(1, InActiveBodyParts[0]);
                         InActiveBodyParts.RemoveAt(0);
@@ -378,6 +381,11 @@ namespace Assets.Models
         {
             BodyParts.Insert(1, turningPart);
             MoveBody();
+        }
+
+        private void MoveHead()
+        {
+
         }
         private void RotateTail(MoveDirection moveDirection, SnakeTurningPartType turningPartType)
         {
