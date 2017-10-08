@@ -30,7 +30,6 @@ namespace Assets.Models
                new SnakePart(SnakePartType.BodyTurning, new Vector3(0, -2, 0)),
                new SnakePart(SnakePartType.BodyTurning, new Vector3(0, -2, 0))
             };
-            Size = 3;
             InActiveBodyParts = new List<SnakePart>()
             {
                 new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
@@ -41,19 +40,61 @@ namespace Assets.Models
                 new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
                 new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
                 new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
-                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0))
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
+                new SnakePart(SnakePartType.Body, new Vector3(0, -3, 0)),
             };
         }
         public List<SnakePart> BodyParts { private set; get; }
         private SnakePart turningPart;
+        public bool IsMoving { set; get; } = false;
+        public bool IsDead { set; get; } = false;
         public List<SnakePart> AdditionalBodyParts { private set; get; }
         public List<SnakePart> InActiveBodyParts { private set; get; }
-        public int Size { set; get; }
         public MoveDirection MoveDirection { set; get; }
-        public void Grow()
-        {
-            
-        }
 
         public void TurnLeft()
         {
@@ -308,7 +349,37 @@ namespace Assets.Models
         {
             Vector3 oldHeadPosition = BodyParts[0].Position;
             BodyParts[0].MovePart();
-            MoveBody(oldHeadPosition, false);
+            if (BodyParts[0].Position.x < 0 || BodyParts[0].Position.x > 19 ||
+                BodyParts[0].Position.y < 0 || BodyParts[0].Position.y > 10 ||
+                BodyParts.FindAll(elem => elem.Position.Equals(BodyParts[0].Position)).Count > 1)
+
+            {
+                IsMoving = false;
+                IsDead = true;
+            }
+
+            if (BodyParts[0].Position.Equals(Apple.Instance.Position))
+            {
+                if(InActiveBodyParts.Count != 0)
+                {
+                    BodyParts.Insert(1, InActiveBodyParts[0]);
+                    BodyParts[1].GameObject.SetActive(true);
+                    BodyParts[1].Position = oldHeadPosition;
+                    BodyParts[1].MoveDirection = BodyParts[0].MoveDirection;
+                    InActiveBodyParts.RemoveAt(0);
+                }
+                else
+                {
+                    SnakePart snakePart = new SnakePart(
+                        SnakePartType.Body,
+                        oldHeadPosition,
+                        BodyParts[0].MoveDirection);
+                    BodyParts.Insert(1, snakePart);
+                }
+                Apple.Instance.Replace(BodyParts);
+            }
+            else
+                MoveBody(oldHeadPosition, false);
         }
         
 
@@ -380,13 +451,20 @@ namespace Assets.Models
         private void AddTurningPart()
         {
             BodyParts.Insert(1, turningPart);
-            MoveBody();
+            if (BodyParts[0].Position.x < 0 || BodyParts[0].Position.x > 19 ||
+                BodyParts[0].Position.y < 0 || BodyParts[0].Position.y > 10 ||
+                BodyParts.FindAll(elem => elem.Position.Equals(BodyParts[0].Position)).Count > 1)
+            {
+                IsMoving = false;
+                IsDead = true;
+            }
+            if (!BodyParts[0].Position.Equals(Apple.Instance.Position))
+                MoveBody();
+            else
+                Apple.Instance.Replace(BodyParts);
         }
 
-        private void MoveHead()
-        {
 
-        }
         private void RotateTail(MoveDirection moveDirection, SnakeTurningPartType turningPartType)
         {
             SnakePart tail = BodyParts[BodyParts.Count - 1];

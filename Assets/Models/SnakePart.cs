@@ -134,44 +134,48 @@ namespace Assets.Models
             switch (snakePartType)
             {
                 case SnakePartType.Body:
-                    GameObject = GameObject.Instantiate(GameObject.FindGameObjectWithTag("SnakeBody"));
+                    GameObject = GameObject.Instantiate(GameObject.Find("Body"));
                     GameObject.transform.parent = GameObject.Find("Game").transform;
                     Position = position;
                     break;
                 case SnakePartType.BodyTurning:
-
-                    switch(snakeTurningPartType)
-                    {
-                        case SnakeTurningPartType.LeftDown:
-                            GameObject = GameObject.Instantiate(
-                                GameObject.FindGameObjectWithTag("SnakeBodyTurning"));
-                            GameObject.transform.parent = GameObject.Find("Game").transform;
-                            Position = position; 
-                            GameObject.transform.Rotate(0, 0, 0);
-                            break;
-                        case SnakeTurningPartType.LeftUp:
-                            GameObject = GameObject.Instantiate(
-                                GameObject.FindGameObjectWithTag("SnakeBodyTurning"));
-                            GameObject.transform.parent = GameObject.Find("Game").transform;
-                            Position = position;
-                            GameObject.transform.Rotate(0, 0, 90);
-                            break;
-                        case SnakeTurningPartType.RightUp:
-                            GameObject = GameObject.Instantiate(
-                                GameObject.FindGameObjectWithTag("SnakeBodyTurning"));
-                            GameObject.transform.parent = GameObject.Find("Game").transform;
-                            Position = position;
-                            GameObject.transform.Rotate(0, 0, 180);
-                            break;
-                        case SnakeTurningPartType.RightDown:
-                            GameObject = GameObject.Instantiate(
-                                GameObject.FindGameObjectWithTag("SnakeBodyTurning"));
-                            GameObject.transform.parent = GameObject.Find("Game").transform;
-                            Position = position;
-                            GameObject.transform.Rotate(0, 0, 270);
-                            break;
-                    }
+                    GameObject = GameObject.Instantiate(GameObject.Find("BodyTurn"));
+                    GameObject.transform.parent = GameObject.Find("Game").transform;
+                    Position = position;
+                    SnakeTurningPartType = snakeTurningPartType;
                     break;
+                /*switch(snakeTurningPartType)
+                {
+                    case SnakeTurningPartType.LeftDown:
+                        GameObject = GameObject.Instantiate(
+                            GameObject.Find("BodyTurn"));
+                        GameObject.transform.parent = GameObject.Find("Game").transform;
+                        Position = position; 
+                        GameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+                        break;
+                    case SnakeTurningPartType.LeftUp:
+                        GameObject = GameObject.Instantiate(
+                            GameObject.Find("BodyTurn"));
+                        GameObject.transform.parent = GameObject.Find("Game").transform;
+                        Position = position;
+                        GameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
+                        break;
+                    case SnakeTurningPartType.RightUp:
+                        GameObject = GameObject.Instantiate(
+                            GameObject.Find("BodyTurn"));
+                        GameObject.transform.parent = GameObject.Find("Game").transform;
+                        Position = position;
+                        GameObject.transform.rotation = Quaternion.Euler(0, 0, 180);
+                        break;
+                    case SnakeTurningPartType.RightDown:
+                        GameObject = GameObject.Instantiate(
+                            GameObject.Find("BodyTurn"));
+                        GameObject.transform.parent = GameObject.Find("Game").transform;
+                        Position = position;
+                        GameObject.transform.rotation = Quaternion.Euler(0, 0, 270);
+                        break;
+                }
+                break;*/
                 default:
                     throw new Exception("Head or Tail must be initialized in another Constructor type");
             }

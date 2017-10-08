@@ -10,6 +10,13 @@ namespace Assets.Models
 {
     class Apple
     {
+        private static readonly Apple instance = new Apple();
+        public static Apple Instance { get { return instance; } }
+        public Apple()
+        {
+            GameObject = GameObject.Find("Apple");
+            Position = new Vector3(19, 0, 0);
+        }
         public GameObject GameObject { get; private set; }
         private Vector3 position;
         public Vector3 Position
@@ -21,7 +28,7 @@ namespace Assets.Models
                 GameObject.transform.localPosition = position * 0.64f;
             }
         }
-        void Replace(List<SnakePart> snake, int width = 19, int height = 10)
+        public void Replace(List<SnakePart> snake, int width = 19, int height = 10)
         {
             Vector3 newPosition;
             do
