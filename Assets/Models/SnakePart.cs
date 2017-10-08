@@ -144,38 +144,6 @@ namespace Assets.Models
                     Position = position;
                     SnakeTurningPartType = snakeTurningPartType;
                     break;
-                /*switch(snakeTurningPartType)
-                {
-                    case SnakeTurningPartType.LeftDown:
-                        GameObject = GameObject.Instantiate(
-                            GameObject.Find("BodyTurn"));
-                        GameObject.transform.parent = GameObject.Find("Game").transform;
-                        Position = position; 
-                        GameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-                        break;
-                    case SnakeTurningPartType.LeftUp:
-                        GameObject = GameObject.Instantiate(
-                            GameObject.Find("BodyTurn"));
-                        GameObject.transform.parent = GameObject.Find("Game").transform;
-                        Position = position;
-                        GameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
-                        break;
-                    case SnakeTurningPartType.RightUp:
-                        GameObject = GameObject.Instantiate(
-                            GameObject.Find("BodyTurn"));
-                        GameObject.transform.parent = GameObject.Find("Game").transform;
-                        Position = position;
-                        GameObject.transform.rotation = Quaternion.Euler(0, 0, 180);
-                        break;
-                    case SnakeTurningPartType.RightDown:
-                        GameObject = GameObject.Instantiate(
-                            GameObject.Find("BodyTurn"));
-                        GameObject.transform.parent = GameObject.Find("Game").transform;
-                        Position = position;
-                        GameObject.transform.rotation = Quaternion.Euler(0, 0, 270);
-                        break;
-                }
-                break;*/
                 default:
                     throw new Exception("Head or Tail must be initialized in another Constructor type");
             }
