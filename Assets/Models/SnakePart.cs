@@ -66,16 +66,16 @@ namespace Assets.Models
                     switch(value)
                     {
                         case SnakeTurningPartType.LeftDown:
-                            GameObject.transform.Rotate(0, 0, 0);
+                            GameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
                             break;
                         case SnakeTurningPartType.LeftUp:
-                            GameObject.transform.Rotate(0, 0, 90);
+                            GameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
                             break;
                         case SnakeTurningPartType.RightUp:
-                            GameObject.transform.Rotate(0, 0, 180);
+                            GameObject.transform.rotation = Quaternion.Euler(0, 0, 180);
                             break;
                         case SnakeTurningPartType.RightDown:
-                            GameObject.transform.Rotate(0, 0, 270);
+                            GameObject.transform.rotation = Quaternion.Euler(0, 0, 270);
                             break;
                     }
                 snakeTurningPartType = value;

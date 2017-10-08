@@ -57,8 +57,13 @@ namespace Assets.Models
 
         public void TurnLeft()
         {
+            int additionalIndex;
             Vector3 oldPosition = BodyParts[0].Position;
-            int additionalIndex = AdditionalBodyParts.FindIndex(x => x.GameObject.activeSelf == false);
+            if (AdditionalBodyParts.Count != 0)
+                additionalIndex = 0;
+            else
+                additionalIndex = -1;
+
             
             switch (BodyParts[0].MoveDirection)
             {
@@ -68,10 +73,10 @@ namespace Assets.Models
                     if (additionalIndex != -1)
                     {
                         turningPart = AdditionalBodyParts[additionalIndex];
+                        turningPart.GameObject.SetActive(true);
                         turningPart.Position = oldPosition;
                         turningPart.MoveDirection = MoveDirection.Up;
                         turningPart.SnakeTurningPartType = SnakeTurningPartType.RightDown;
-                        turningPart.GameObject.SetActive(true);
                         AdditionalBodyParts.RemoveAt(additionalIndex);
                     }
                     else
@@ -115,9 +120,13 @@ namespace Assets.Models
 
         public void TurnRight()
         {
+            int additionalIndex;
             Vector3 oldPosition = BodyParts[0].Position;
-            int additionalIndex = AdditionalBodyParts.FindIndex(x => x.GameObject.activeSelf == false);
-            
+            if (AdditionalBodyParts.Count != 0)
+                additionalIndex = 0;
+            else
+                additionalIndex = -1;
+
             switch (BodyParts[0].MoveDirection)
             {
                 case MoveDirection.Up:
@@ -126,10 +135,10 @@ namespace Assets.Models
                     if (additionalIndex != -1)
                     {
                         turningPart = AdditionalBodyParts[additionalIndex];
+                        turningPart.GameObject.SetActive(true);
                         turningPart.Position = oldPosition;
                         turningPart.MoveDirection = MoveDirection.Up;
                         turningPart.SnakeTurningPartType = SnakeTurningPartType.LeftDown;
-                        turningPart.GameObject.SetActive(true);
                         AdditionalBodyParts.RemoveAt(additionalIndex);
                     }
                     else
@@ -173,9 +182,13 @@ namespace Assets.Models
 
         public void TurnDown()
         {
+            int additionalIndex;
             Vector3 oldPosition = BodyParts[0].Position;
-            int additionalIndex = AdditionalBodyParts.FindIndex(x => x.GameObject.activeSelf == false);
-            
+            if (AdditionalBodyParts.Count != 0)
+                additionalIndex = 0;
+            else
+                additionalIndex = -1;
+
             switch (BodyParts[0].MoveDirection)
             {
                 case MoveDirection.Right:
@@ -231,9 +244,13 @@ namespace Assets.Models
 
         public void TurnUp()
         {
+            int additionalIndex;
             Vector3 oldPosition = BodyParts[0].Position;
-            int additionalIndex = AdditionalBodyParts.FindIndex(x => x.GameObject.activeSelf == false);
-            
+            if (AdditionalBodyParts.Count != 0)
+                additionalIndex = 0;
+            else
+                additionalIndex = -1;
+
             switch (BodyParts[0].MoveDirection)
             {
                 case MoveDirection.Right:
@@ -242,10 +259,10 @@ namespace Assets.Models
                     if (additionalIndex != -1)
                     {
                         turningPart = AdditionalBodyParts[additionalIndex];
+                        turningPart.GameObject.SetActive(true);
                         turningPart.Position = oldPosition;
                         turningPart.MoveDirection = MoveDirection.Up;
                         turningPart.SnakeTurningPartType = SnakeTurningPartType.RightUp;
-                        turningPart.GameObject.SetActive(true);
                         AdditionalBodyParts.RemoveAt(additionalIndex);
                     }
                     else
@@ -265,10 +282,10 @@ namespace Assets.Models
                     if (additionalIndex != -1)
                     {
                         turningPart = AdditionalBodyParts[additionalIndex];
+                        turningPart.GameObject.SetActive(true);
                         turningPart.Position = oldPosition;
                         turningPart.MoveDirection = MoveDirection.Up;
                         turningPart.SnakeTurningPartType = SnakeTurningPartType.LeftUp;
-                        turningPart.GameObject.SetActive(true);
                         AdditionalBodyParts.RemoveAt(additionalIndex);
                     }
                     else
