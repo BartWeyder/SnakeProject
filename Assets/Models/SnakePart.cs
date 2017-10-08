@@ -31,16 +31,16 @@ namespace Assets.Models
                         switch(value)
                         {
                             case MoveDirection.Right:
-                                GameObject.transform.Rotate(0, 0, 0);
-                                break;
-                            case MoveDirection.Down:
-                                GameObject.transform.Rotate(0, 0, 90);
-                                break;
-                            case MoveDirection.Left:
-                                GameObject.transform.Rotate(0, 0, 180);
+                                GameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
                                 break;
                             case MoveDirection.Up:
-                                GameObject.transform.Rotate(0, 0, 270);
+                                GameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
+                                break;
+                            case MoveDirection.Left:
+                                GameObject.transform.rotation = Quaternion.Euler(0, 0, 180);
+                                break;
+                            case MoveDirection.Down:
+                                GameObject.transform.rotation = Quaternion.Euler(0, 0, 270);
                                 break;
                         }
                         break;
@@ -87,7 +87,7 @@ namespace Assets.Models
             set
             {
                 position = value;
-                GameObject.transform.position = position * 0.64f;
+                GameObject.transform.localPosition = position * 0.64f;
             }
             get
             {
@@ -103,12 +103,12 @@ namespace Assets.Models
                 case "SnakeHead":
                     SnakePartType = SnakePartType.Head;
                     MoveDirection = MoveDirection.Right;
-                    Position = new Vector3(3, 0, 0);
+                    Position = new Vector3(2, 0, 0);
                     break;
                 case "SnakeBody":
                     SnakePartType = SnakePartType.Body;
                     MoveDirection = MoveDirection.Right;
-                    Position = new Vector3(2, 0, 0);
+                    Position = new Vector3(1, 0, 0);
                     break;
                 case "SnakeTail":
                     SnakePartType = SnakePartType.Tail;
@@ -135,6 +135,7 @@ namespace Assets.Models
             {
                 case SnakePartType.Body:
                     GameObject = GameObject.Instantiate(GameObject.FindGameObjectWithTag("SnakeBody"));
+                    GameObject.transform.parent = GameObject.Find("Game").transform;
                     Position = position;
                     break;
                 case SnakePartType.BodyTurning:
@@ -144,24 +145,28 @@ namespace Assets.Models
                         case SnakeTurningPartType.LeftDown:
                             GameObject = GameObject.Instantiate(
                                 GameObject.FindGameObjectWithTag("SnakeBodyTurning"));
+                            GameObject.transform.parent = GameObject.Find("Game").transform;
                             Position = position; 
                             GameObject.transform.Rotate(0, 0, 0);
                             break;
                         case SnakeTurningPartType.LeftUp:
                             GameObject = GameObject.Instantiate(
                                 GameObject.FindGameObjectWithTag("SnakeBodyTurning"));
+                            GameObject.transform.parent = GameObject.Find("Game").transform;
                             Position = position;
                             GameObject.transform.Rotate(0, 0, 90);
                             break;
                         case SnakeTurningPartType.RightUp:
                             GameObject = GameObject.Instantiate(
                                 GameObject.FindGameObjectWithTag("SnakeBodyTurning"));
+                            GameObject.transform.parent = GameObject.Find("Game").transform;
                             Position = position;
                             GameObject.transform.Rotate(0, 0, 180);
                             break;
                         case SnakeTurningPartType.RightDown:
                             GameObject = GameObject.Instantiate(
                                 GameObject.FindGameObjectWithTag("SnakeBodyTurning"));
+                            GameObject.transform.parent = GameObject.Find("Game").transform;
                             Position = position;
                             GameObject.transform.Rotate(0, 0, 270);
                             break;
@@ -171,6 +176,31 @@ namespace Assets.Models
                     throw new Exception("Head or Tail must be initialized in another Constructor type");
             }
             MoveDirection = moveDirection;
+        }
+
+        public void MovePart()
+        {
+            Vector3 tempVector;
+
+            switch (MoveDirection)
+            {
+                case MoveDirection.Down:
+                    tempVector = new Vector3(0, -1, 0);
+                    Position += tempVector;
+                    break;
+                case MoveDirection.Up:
+                    tempVector = new Vector3(0, 1, 0);
+                    Position += tempVector;
+                    break;
+                case MoveDirection.Left:
+                    tempVector = new Vector3(-1, 0, 0);
+                    Position += tempVector;
+                    break;
+                case MoveDirection.Right:
+                    tempVector = new Vector3(1, 0, 0);
+                    Position += tempVector;
+                    break;
+            }
         }
     }
 }
