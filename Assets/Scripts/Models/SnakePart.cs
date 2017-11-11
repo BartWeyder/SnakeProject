@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Models
+namespace Assets.Scripts.Models
 {
     public enum SnakePartType { Head, Body, BodyTurning, Tail }
     public enum SnakeTurningPartType { RightUp, RightDown, LeftDown, LeftUp }
 
-    class SnakePart
+    class SnakePart : IPuttable
     {
         public SnakePartType SnakePartType { private set; get; }
         private MoveDirection moveDirection;

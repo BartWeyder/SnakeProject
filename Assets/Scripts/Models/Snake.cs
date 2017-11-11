@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Models
+namespace Assets.Scripts.Models
 {
     public enum MoveDirection { Right, Down, Left, Up }
     class Snake

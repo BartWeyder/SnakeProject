@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 
-namespace Assets.Models
+namespace Assets.Scripts.Models
 {
-    class Apple
+    class Apple : IPuttable
     {
         private static readonly Apple instance = new Apple();
         public static Apple Instance { get { return instance; } }

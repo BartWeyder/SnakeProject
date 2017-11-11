@@ -1,4 +1,4 @@
-﻿using Assets.Models;
+﻿using Assets.Scripts.Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +9,12 @@ public class SnakeBehaviour : MonoBehaviour {
     private float speed = 1f;
     
     Snake snake;
+    Game game;
     public int Score { get { return snake.BodyParts.Count; } }
     // Use this for initialization
     void Start () {
+        game = new Game();
+        game.DoLogic();
         snake = new Snake();
         InvokeRepeating("SnakeMove", 0, 1/speed);
 
