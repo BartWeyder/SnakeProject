@@ -17,6 +17,7 @@ namespace Assets._Root.Scripts.Models
 
         [Inject]
         PlayerLost PlayerLost { get; set; }
+
         private Random random;
         private IPuttable[,] field;
         public IPuttable[,] Field
@@ -49,23 +50,24 @@ namespace Assets._Root.Scripts.Models
             GetFreeCells();
             return freeCells[random.Next(0, freeCells.Count)];
         }
-        public void TryMove(Cell cell)
+
+        public bool TryMove(Cell cell)
         {
-            if(cell.I >= field.GetLength(0) || cell.J >= field.GetLength(1) || field[cell.I, cell.J] != null)
+            if (cell.I >= field.GetLength(0) || cell.J >= field.GetLength(1) || field[cell.I, cell.J] != null)
             {
                 PlayerLost.Dispatch();
+                return false;
             }
+
+            if (field[cell.I, cell.J] is Bonus)
+            {
+                //bonus logic
+            }
+
+            return true;
+
         }
+
     }
 
-    class Cell
-    {
-        public int I { get; private set; }
-        public int J { get; private set; }
-        public Cell (int i, int j)
-        {
-            I = i;
-            J = j;
-        }
-    }
 }

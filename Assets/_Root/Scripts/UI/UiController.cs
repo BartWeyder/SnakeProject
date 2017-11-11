@@ -15,18 +15,27 @@ namespace Assets._Root.Scripts.UI
         public PlayerLost PlayerLost { get; set; }
 
         [Inject]
+        public ScoreUpdated ScoreUpdated { get; set; }
+
+        [Inject]
         public Game Game { get; set; }
 
         protected override void Start()
         {
             base.Start();
             PlayerLost.AddListener(OnPlayerLost);
+            ScoreUpdated.AddListener(OnScoreUpdated);
         }
 
         private void OnPlayerLost()
         {
             //add logic later
             Game.Velocity = 0;
+        }
+
+        private void OnScoreUpdated(int score)
+        {
+            //add logic later
         }
     }
 }

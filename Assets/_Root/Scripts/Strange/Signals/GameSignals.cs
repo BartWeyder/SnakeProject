@@ -11,5 +11,11 @@ namespace Assets._Root.Scripts.Strange.Signals
     [Implements]
     public class PlayerLost : Signal { }
 
+    [Implements]
+    public class ScoreUpdated : Signal<int> { }
+
+    [Implements]
+    public class CoinsUpdated : Signal<int> { }
+
 
 }
