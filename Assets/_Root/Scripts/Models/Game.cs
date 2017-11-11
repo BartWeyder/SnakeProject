@@ -14,14 +14,16 @@ namespace Assets.Scripts.Models
     {
         public Game()
         {
-
+            SnakeEats.AddListener(OnSnakeEats);
+            SnakeGetsBonus.AddListener(OnSnakeGetsBonus);
+            Velocity = 0.5f;
         }
 
         public float Velocity { get; set; }
 
         private List<ICollectible> bonuses = new List<ICollectible>();
         public List<ICollectible> Bonuses { get; }
-        
+
         [Inject]
         private Snake Snake { get; set; }
 
@@ -33,6 +35,12 @@ namespace Assets.Scripts.Models
 
         [Inject]
         public GameField GameField { set; get; }
+
+        [Inject]
+        public SnakeEats SnakeEats { set; get; }
+
+        [Inject]
+        public SnakeGetsBonus SnakeGetsBonus { set; get; }
 
         private int score;
         public int Score
@@ -59,6 +67,16 @@ namespace Assets.Scripts.Models
         public void MakeMove()
         {
             //add logic later
+        }
+
+        private void OnSnakeEats()
+        {
+
+        }
+
+        private void OnSnakeGetsBonus(BonusType bonusType)
+        {
+
         }
 
     }

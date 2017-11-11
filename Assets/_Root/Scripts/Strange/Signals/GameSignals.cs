@@ -1,10 +1,5 @@
-﻿using Assets.Scripts.Models;
+﻿using Assets._Root.Scripts.Models;
 using strange.extensions.signal.impl;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets._Root.Scripts.Strange.Signals
 {
@@ -17,5 +12,10 @@ namespace Assets._Root.Scripts.Strange.Signals
     [Implements]
     public class CoinsUpdated : Signal<int> { }
 
+    [Implements]
+    public class SnakeEats : Signal { }
+
+    [Implements]
+    public class SnakeGetsBonus : Signal<BonusType> { }
 
 }

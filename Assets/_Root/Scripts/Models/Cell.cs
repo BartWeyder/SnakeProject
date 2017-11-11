@@ -8,12 +8,24 @@ namespace Assets._Root.Scripts.Models
 {
     class Cell
     {
-        public int I { get; private set; }
-        public int J { get; private set; }
+        public Cell()
+        {
+            I = 0;
+            J = 0;
+        }
+
         public Cell(int i, int j)
         {
             I = i;
             J = j;
+        }
+
+        public int I { get;  set; }
+        public int J { get;  set; }      
+        
+        public static Cell Copy(Cell cell)
+        {
+            return new Cell(cell.I, cell.J);
         }
     }
 }

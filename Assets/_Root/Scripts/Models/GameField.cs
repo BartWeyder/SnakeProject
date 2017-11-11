@@ -18,6 +18,12 @@ namespace Assets._Root.Scripts.Models
         [Inject]
         PlayerLost PlayerLost { get; set; }
 
+        [Inject]
+        public SnakeEats SnakeEats { set; get; }
+
+        [Inject]
+        public SnakeGetsBonus SnakeGetsBonus { set; get; }
+
         private Random random;
         private IPuttable[,] field;
         public IPuttable[,] Field
@@ -51,20 +57,31 @@ namespace Assets._Root.Scripts.Models
             return freeCells[random.Next(0, freeCells.Count)];
         }
 
-        public bool TryMove(Cell cell)
+        public int TryMove(Cell cell)
         {
-            if (cell.I >= field.GetLength(0) || cell.J >= field.GetLength(1) || field[cell.I, cell.J] != null)
+            if (cell.I >= field.GetLength(0) || cell.J >= field.GetLength(1) || cell.I < 0 || cell.J < 0 || field[cell.I, cell.J] != null)
             {
                 PlayerLost.Dispatch();
-                return false;
+                return -1;
             }
 
-            if (field[cell.I, cell.J] is Bonus)
+            if (field[cell.I, cell.J].PuttableType == PuttableType.Bonus)
             {
+                Bonus bonus = (Bonus)field[cell.I, cell.J];
+                
                 //bonus logic
+                SnakeGetsBonus.Dispatch(bonus.BonusType);
+                
             }
 
-            return true;
+            if (field[cell.I, cell.J].PuttableType == PuttableType.Apple)
+            {
+                SnakeEats.Dispatch();
+                return 1;
+
+            }
+
+            return 0;
 
         }
 
