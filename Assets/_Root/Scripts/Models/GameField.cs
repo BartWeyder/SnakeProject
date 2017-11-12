@@ -6,13 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Assets._Root.Scripts.Models
 {
+    public enum PuttableType { Empty, SnakePart, Apple, Bonus }
+
+    /**
+     * 
+     * This class is only for faster check of cells status
+     * 
+     */
     class GameField
     {
         public GameField (int w, int h)
         {
-            Field = new IPuttable[h, w];
+            Field = new PuttableType[h, w];
         }
 
         [Inject]
@@ -28,8 +36,8 @@ namespace Assets._Root.Scripts.Models
         public Snake Snake { get; }
 
         private Random random;
-        private IPuttable[,] field;
-        public IPuttable[,] Field
+        private PuttableType[,] field;
+        public PuttableType[,] Field
         {
             private set
             {
@@ -49,7 +57,7 @@ namespace Assets._Root.Scripts.Models
             {
                 for (int j = 0; j < field.GetLength(1); j++)
                 {
-                    if (field[i,j] == null)
+                    if (field[i,j] == PuttableType.Empty)
                         freeCells.Add(new Cell(i, j));
                 }
             }
@@ -63,21 +71,21 @@ namespace Assets._Root.Scripts.Models
         public int TryMove(Cell cell)
         {
             if ((cell.I >= field.GetLength(0) || cell.J >= field.GetLength(1) || cell.I < 0 || cell.J < 0 || 
-                field[cell.I, cell.J].PuttableType == PuttableType.SnakePart))
+                field[cell.I, cell.J] == PuttableType.SnakePart))
             {
                 if(!Snake.IsImmortal)
                     PlayerLost.Dispatch();
                 return -1;
             }
 
-            if (field[cell.I, cell.J].PuttableType == PuttableType.Bonus)
+            if (field[cell.I, cell.J] == PuttableType.Bonus)
             {
-                SnakeGetsBonus.Dispatch(cell.I, cell.J);   
+                SnakeGetsBonus.Dispatch(cell);   
             }
 
-            if (field[cell.I, cell.J].PuttableType == PuttableType.Apple)
+            if (field[cell.I, cell.J] == PuttableType.Apple)
             {
-                SnakeEats.Dispatch(cell.I, cell.J);
+                SnakeEats.Dispatch(cell);
                 return 1;
             }
 

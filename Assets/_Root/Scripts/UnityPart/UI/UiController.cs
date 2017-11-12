@@ -20,11 +20,15 @@ namespace Assets._Root.Scripts.UI
         [Inject]
         public Game Game { get; set; }
 
+        [Inject]
+        public VelocityChanged VelocityChanged { get; set; }
+
         protected override void Start()
         {
             base.Start();
             PlayerLost.AddListener(OnPlayerLost);
             ScoreUpdated.AddListener(OnScoreUpdated);
+            VelocityChanged.AddListener(OnVelocityChanged);
         }
 
         private void OnPlayerLost()
@@ -36,6 +40,22 @@ namespace Assets._Root.Scripts.UI
         private void OnScoreUpdated(int score)
         {
             //add logic later
+        }
+
+        private void OnVelocityChanged(float v)
+        {
+            if(v == Game.standartVelocity)
+            {
+                //add logic later
+            }
+            if(v < Game.standartVelocity)
+            {
+                //add logic later
+            }
+            if(v > Game.standartVelocity)
+            {
+                //add logic later
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Assets._Root.Scripts.Models
         LeftUp = DownRight
     }
 
-    class SnakePart : IPuttable
+    class SnakePart
     {
         public SnakePart(MoveDirection moveDirection, SnakePartType snakePartType, Cell cell)
         {

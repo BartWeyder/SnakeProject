@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets._Root.Scripts.Models
 {
-    class Cell
+    public class Cell
     {
         public Cell()
         {

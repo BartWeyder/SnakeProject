@@ -13,9 +13,14 @@ namespace Assets._Root.Scripts.Strange.Signals
     public class CoinsUpdated : Signal<int> { }
 
     [Implements]
-    public class SnakeEats : Signal<int, int> { }
+    public class SnakeEats : Signal<Cell> { }
 
     [Implements]
-    public class SnakeGetsBonus : Signal<int, int> { }
+    public class SnakeGetsBonus : Signal<Cell> { }
 
+    [Implements]
+    public class VelocityChanged : Signal <float> { }
+
+    [Implements]
+    public class GameStarted : Signal { }
 }

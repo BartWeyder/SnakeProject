@@ -14,9 +14,10 @@ namespace Assets._Root.Scripts.Models
             snakeParts.Add(new SnakePart(MoveDirection.Right, SnakePartType.Head, new Cell(GameField.Field.GetLength(0), 2)));
             snakeParts.Add(new SnakePart(MoveDirection.Right, SnakePartType.Body, new Cell(GameField.Field.GetLength(0), 1)));
             snakeParts.Add(new SnakePart(MoveDirection.Right, SnakePartType.Tail, new Cell(GameField.Field.GetLength(0), 0)));
+            Update();
         }
 
-        private List<SnakePart> snakeParts = new List<SnakePart>();
+        public List<SnakePart> snakeParts = new List<SnakePart>();
 
         public bool IsImmortal { get; set; } = false;
 
@@ -132,7 +133,7 @@ namespace Assets._Root.Scripts.Models
                 snakeParts[i].Move(snakeParts[i - 1], newCell);
                 newCell = oldCell;
             }
-            GameField.Field[oldCell.I, oldCell.J] = null;
+            GameField.Field[oldCell.I, oldCell.J] = PuttableType.Empty;
             Update();
         }
 
@@ -140,7 +141,7 @@ namespace Assets._Root.Scripts.Models
         {
             foreach(var snakePart in snakeParts)
             {
-                GameField.Field[snakePart.Cell.I, snakePart.Cell.J] = snakePart;
+                GameField.Field[snakePart.Cell.I, snakePart.Cell.J] = PuttableType.SnakePart;
             }
         }
     }

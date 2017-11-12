@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using strange.extensions.context.api;
+﻿using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using strange.extensions.signal.impl;
 using Assets._Root.Scripts.Models;
@@ -23,8 +18,10 @@ namespace Assets._Root.Scripts.Strange.Context
             string[] namespaces = { "" };
             implicitBinder.ScanForAnnotatedClasses(namespaces);
 
-            injectionBinder.Bind<Snake>().To<Snake>().ToSingleton();
-            injectionBinder.Bind<GameField>().To<GameField>().ToSingleton();
+            GameField gameField = new GameField(20, 11);
+            injectionBinder.Bind<GameField>().ToValue(gameField);
+            Snake snake = new Snake();
+            injectionBinder.Bind<Snake>().ToValue(snake);
         }
     }
 }
