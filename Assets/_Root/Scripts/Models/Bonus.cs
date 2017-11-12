@@ -7,16 +7,12 @@ using System.Threading.Tasks;
 
 namespace Assets._Root.Scripts.Models
 {
-    public enum BonusType
-    {
-        Immortal,
-        Boost,
-        Slowdown
-    }
-
-    class Bonus : IPuttable
+    public abstract class Bonus : IPuttable
     {
         public PuttableType PuttableType { set; get; } = PuttableType.Bonus;
-        
+        private Cell cell;
+        public bool IsActive { set; get; }
+        public abstract void Activate();
+        public abstract void Deactivate();
     }
 }

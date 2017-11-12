@@ -13,9 +13,9 @@ namespace Assets._Root.Scripts.Strange.Signals
     public class CoinsUpdated : Signal<int> { }
 
     [Implements]
-    public class SnakeEats : Signal { }
+    public class SnakeEats : Signal<int, int> { }
 
     [Implements]
-    public class SnakeGetsBonus : Signal<BonusType> { }
+    public class SnakeGetsBonus : Signal<int, int> { }
 
 }

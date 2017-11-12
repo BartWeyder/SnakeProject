@@ -18,7 +18,7 @@ namespace Assets._Root.Scripts.Models
 
         private List<SnakePart> snakeParts = new List<SnakePart>();
 
-        Bonus CurrentBonus { get; set; }
+        public bool IsImmortal { get; set; } = false;
 
         [Inject] GameField GameField { set; get; }
 
@@ -52,16 +52,15 @@ namespace Assets._Root.Scripts.Models
                 oldCell = Cell.Copy(snakeParts[0].Cell);
                 snakeParts[0].Cell.I = newCell.I;
                 snakeParts[0].Cell.J = newCell.J;
-            }
-                
 
-            if (GameField.TryMove(newCell) != 1)
-                MoveBody(oldCell);
-            else
-            {
-                snakeParts.Insert(1, new SnakePart(snakeParts[1]));
-                snakeParts[1].Move(snakeParts[0], oldCell);
-            }
+                if (GameField.TryMove(newCell) != 1)
+                    MoveBody(oldCell);
+                else
+                {
+                    snakeParts.Insert(1, new SnakePart(snakeParts[1]));
+                    snakeParts[1].Move(snakeParts[0], oldCell);
+                }
+            }            
         }
 
         public void Move (MoveDirection direction)
@@ -107,16 +106,20 @@ namespace Assets._Root.Scripts.Models
                     }
                     break;
             }
-            var oldCell = Cell.Copy(head.Cell);
-            head.MoveDirection = direction;
-            head.Cell = newCell;
 
-            if (GameField.TryMove(newCell) != 1)
-                MoveBody(oldCell);
-            else
+            if (GameField.TryMove(newCell) != -1)
             {
-                snakeParts.Insert(1, new SnakePart(snakeParts[1]));
-                snakeParts[1].Move(snakeParts[0], oldCell);
+                var oldCell = Cell.Copy(head.Cell);
+                head.MoveDirection = direction;
+                head.Cell = newCell;
+
+                if (GameField.TryMove(newCell) != 1)
+                    MoveBody(oldCell);
+                else
+                {
+                    snakeParts.Insert(1, new SnakePart(snakeParts[1]));
+                    snakeParts[1].Move(snakeParts[0], oldCell);
+                }
             }
         }
 
@@ -130,7 +133,7 @@ namespace Assets._Root.Scripts.Models
                 newCell = oldCell;
             }
             GameField.Field[oldCell.I, oldCell.J] = null;
-            
+            Update();
         }
 
         public void Update()

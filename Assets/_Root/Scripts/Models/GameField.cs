@@ -24,6 +24,9 @@ namespace Assets._Root.Scripts.Models
         [Inject]
         public SnakeGetsBonus SnakeGetsBonus { set; get; }
 
+        [Inject]
+        public Snake Snake { get; }
+
         private Random random;
         private IPuttable[,] field;
         public IPuttable[,] Field
@@ -59,26 +62,23 @@ namespace Assets._Root.Scripts.Models
 
         public int TryMove(Cell cell)
         {
-            if (cell.I >= field.GetLength(0) || cell.J >= field.GetLength(1) || cell.I < 0 || cell.J < 0 || field[cell.I, cell.J] != null)
+            if ((cell.I >= field.GetLength(0) || cell.J >= field.GetLength(1) || cell.I < 0 || cell.J < 0 || 
+                field[cell.I, cell.J].PuttableType == PuttableType.SnakePart))
             {
-                PlayerLost.Dispatch();
+                if(!Snake.IsImmortal)
+                    PlayerLost.Dispatch();
                 return -1;
             }
 
             if (field[cell.I, cell.J].PuttableType == PuttableType.Bonus)
             {
-                Bonus bonus = (Bonus)field[cell.I, cell.J];
-                
-                //bonus logic
-                SnakeGetsBonus.Dispatch(bonus.BonusType);
-                
+                SnakeGetsBonus.Dispatch(cell.I, cell.J);   
             }
 
             if (field[cell.I, cell.J].PuttableType == PuttableType.Apple)
             {
-                SnakeEats.Dispatch();
+                SnakeEats.Dispatch(cell.I, cell.J);
                 return 1;
-
             }
 
             return 0;
