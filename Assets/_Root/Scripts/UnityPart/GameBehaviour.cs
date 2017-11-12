@@ -1,4 +1,5 @@
 ﻿using Assets._Root.Scripts.Render;
+using Assets._Root.Scripts.Strange.Context;
 using Assets.Scripts.Models;
 using System;
 using System.Collections;
@@ -11,13 +12,16 @@ public class GameBehaviour : MonoBehaviour {
     DrawPart draw;
     // Use this for initialization
     void Start () {
+        //GameContext gameContext = new GameContext();
         game = new Game();
         draw = new DrawPart();
         Draw();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        InvokeRepeating("CallMove", 1, game.Velocity);
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 		if(!isGameStarted)
         {
             if (Input.GetKeyDown(KeyCode.Space))
